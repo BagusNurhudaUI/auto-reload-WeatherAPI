@@ -1,5 +1,6 @@
 # auto-reload-WeatherAPI
 
+run the project
 go run main.go
 
 open :

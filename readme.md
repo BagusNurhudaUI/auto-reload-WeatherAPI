@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Basic
 example for auto update/reload website
 

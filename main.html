@@ -3,18 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="refresh" content="5">
+    <meta http-equiv="refresh" content="15">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <h1>This is a Website for get Weather Data!</h1>
-    {{if le .Water 50}}
-        <h1>Statistik Water : {{.Water}}, AMAN</h1>
-        {{else}}
-        <h1>Statistik Water : {{.Water}}, SIAGA</h1>
+    <div>
+        <h1>Website informasi perkiraan statistik air dan angin..</h1>
+        {{if le .Water 5}}
+            <h1>statistik air: {{.Water}} meter , status : aman  | <svg width="100" height="19">
+                <rect width="100" height="19" style="fill:green;stroke-width:3;stroke:rgb(0,0,0)" />
+              </svg></h1>
+            {{else if le .Water 8}}
+            <h1>statistik air: {{.Water}} meter , status : siaga | <svg width="100" height="19">
+                <rect width="100" height="19" style="fill:yellow;stroke-width:3;stroke:rgb(0,0,0)" />
+              </svg></h1>
+            {{else}}
+            <h1>statistik air: {{.Water}} meter , status : bahaya | <svg width="100" height="19">
+                <rect width="100" height="19" style="fill:red;stroke-width:3;stroke:rgb(0,0,0)" />
+              </svg></h1>
         {{end}}
+        
+        {{if le .Wind 6}}
+            <h1>statistik angin: {{.Wind}} meter/detik , status : aman | <svg width="100" height="19">
+                <rect width="100" height="19" style="fill:green;stroke-width:3;stroke:rgb(0,0,0)" />
+              </svg></h1>
+            {{else if le .Wind 15}}
+            <h1>statistik angin: {{.Wind}} meter/detik , status : siaga | <svg width="100" height="19">
+                <rect width="100" height="19" style="fill:yellow;stroke-width:3;stroke:rgb(0,0,0)" />
+              </svg></h1>
+            {{else}}
+            <h1>statistik angin: {{.Wind}} meter/detik , status : bahaya | <svg width="100" height="19">
+                <rect width="100" height="19" style="fill:red;stroke-width:3;stroke:rgb(0,0,0)" />
+              </svg></h1>
+        {{end}}
+    </div>
     
-    <h1>Statistik Angin : {{.Wind}}</h1>
+    
 </body>
 </html>

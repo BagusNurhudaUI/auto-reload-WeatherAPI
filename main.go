@@ -14,17 +14,21 @@ type Status struct {
 	Wind  int `json:"wind"`
 }
 
-var status Status
+var (
+	angin  string
+	air    string
+	status Status
+)
 
 func main() {
-
-	status = Status{rand.Intn(100), rand.Intn(100)}
+	fmt.Println("Welcome to the server!")
+	getUpdatedData() //get first data
 	gocron.Every(15).Seconds().Do(getUpdatedData)
 	gocron.Start()
-	fmt.Println("Welcome to the server!")
+
 	r := gin.Default()
-	r.GET("/", indexPage)
-	r.GET("/status", StatusWeather)
+	r.GET("/", StatusWeather)
+	r.GET("/status", indexPage)
 	r.Run("127.0.0.1:3000")
 }
 
@@ -35,9 +39,31 @@ func indexPage(c *gin.Context) {
 	c.JSON(200, result)
 }
 
-func getUpdatedData() {
+func getStatus() {
 	status = Status{rand.Intn(100), rand.Intn(100)}
-	fmt.Println("I am running to update : Water, Wind :", status)
+	if status.Wind <= 5 {
+		angin = "Aman"
+	} else if status.Wind < 8 {
+		angin = "Siaga"
+	} else {
+		angin = "Bahaya"
+	}
+
+	if status.Water <= 6 {
+		air = "Aman"
+	} else if status.Water < 15 {
+		air = "Siaga"
+	} else {
+		air = "Bahaya"
+	}
+}
+func getUpdatedData() {
+	getStatus()
+	fmt.Println("--------------------------------")
+	fmt.Println("Running the update....")
+	fmt.Println("Wind:", status.Wind, "  Status:", angin)
+	fmt.Println("Water:", status.Water, "  Status:", air)
+
 }
 
 func StatusWeather(c *gin.Context) {
